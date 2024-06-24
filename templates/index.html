@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Baby Name Generator</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            transition: background 0.5s ease;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0 20px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-r from-blue-500 to-green-500">
+    <div class="container">
+        <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
+            <h1 class="text-3xl font-bold mb-4 text-center">Baby Name Generator</h1>
+            <form id="generateForm" action="/generate" method="post" class="mb-8">
+                <button type="submit" id="generateButton" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md w-full">Generate Name</button>
+            </form>
+            {% if generated_name %}
+                <div class="bg-gray-200 rounded-lg shadow-md px-6 py-4 mb-4">
+                    <h2 class="text-xl font-bold mb-2">Generated Name:</h2>
+                    <p class="text-lg text-gray-800">{{ generated_name }}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const generateForm = document.getElementById('generateForm');
+
+        generateForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const randomColor1 = getRandomColor();
+            const randomColor2 = getRandomColor();
+            document.body.style.background = `linear-gradient(to right, ${randomColor1}, ${randomColor2})`;
+            this.submit();
+        });
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+    </script>
+</body>
+</html>
